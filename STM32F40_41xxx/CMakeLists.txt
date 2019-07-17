@@ -18,6 +18,7 @@ include_directories(
 		STM32F40_41xxx/stdperiphlib/include
 		STM32F40_41xxx/CMSIS/system/include
 		STM32F40_41xxx/CMSIS/include
+		tools
 )
 
 aux_source_directory(
