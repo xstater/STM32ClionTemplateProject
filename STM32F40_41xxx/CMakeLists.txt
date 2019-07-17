@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.1)
 
 enable_language(ASM)
 
+#skip compiler features test
+#set(CMAKE_C_COMPILER_WORK ON)
+#set(CMAKE_CXX_COMPILER_WORK ON)
+
 add_definitions(-DSTM32F40_41xxx)
 add_definitions(-DSTM32F407xx)
 add_definitions(-DCMAKE_SYSTEM_NAME=Generic)
