@@ -31,7 +31,7 @@ USART::USART(){
 
 USART::~USART() = default;
 
-USART &USART::operator<<(int data){
+USART &USART::operator<<(int32_t data){
     char s[13],*p = s,*q = s;///q is the position of the first digit
     if(data < 0){
         *(p++) = '-';
@@ -74,6 +74,51 @@ USART& USART::operator<<(char ch){
 USART &USART::operator>>(char &ch){
     while(USART_GetFlagStatus(USART1,USART_FLAG_RXNE) != SET);
     ch = USART_ReceiveData(USART1);
+    return *this;
+}
+
+USART &USART::operator<<(uint32_t data){
+    char s[13],*p = s,*q = s;///q is the position of the first digit
+    ///get digits
+    for(;data > 0;data /= 10){
+        *(p++) = data % 10 + '0';
+    }
+    *p = '\0';
+    ///reverse the sequence
+    for(--p;p >= q;--p,++q){
+        char c = *p;
+        *p = *q;
+        *q = c;
+    }
+    ///output to uart
+    for(p = s;*p != '\0';++p){
+        *this << *p;
+    }
+    return *this;
+}
+
+USART &USART::operator<<(int data){
+    char s[13],*p = s,*q = s;///q is the position of the first digit
+    if(data < 0){
+        *(p++) = '-';
+        data = -data;
+    }
+    q = p;
+    ///get digits
+    for(;data > 0;data /= 10){
+        *(p++) = data % 10 + '0';
+    }
+    *p = '\0';
+    ///reverse the sequence
+    for(--p;p >= q;--p,++q){
+        char c = *p;
+        *p = *q;
+        *q = c;
+    }
+    ///output to uart
+    for(p = s;*p != '\0';++p){
+        *this << *p;
+    }
     return *this;
 }
 

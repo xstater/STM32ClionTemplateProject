@@ -49,7 +49,7 @@ set(
 add_executable(
 		main
 		main.cpp
-		interrupts.cpp
+		exception_handlers.cpp
 		${STD_PERIPH_LIB_SOURCE}
 		${SYSTEM_SOURCE}
 		${STARTUP_ASM}

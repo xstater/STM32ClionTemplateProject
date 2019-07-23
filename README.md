@@ -9,6 +9,7 @@ Clion的STM32项目的模板
 * [stdperiphlib](./STM32F40_41xxx/stdperiphlib)里面是ST的外设库，可以删除不需要的外设源文件
 * 安装openOCD之后可以在Clion里设置一键下载
 * 在Clion中还可以设置使用ST-Link Utility CLI下载
-* 中断函数在interrupts里面而不是在stm32f4xx_it里面
+* 异常中断函数在[exception_handlers.cpp](./STM32F40_41xxx/exception_handlers.cpp)中
+* 其他中断函数自行实现在别的文件中
 ### Todo
 * 添加别的设备

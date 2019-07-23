@@ -1,38 +1,39 @@
-#ifndef _DELAY_H_
-#define _DELAY_H_
+#ifndef _TOOLS_DELAY_H_
+#define _TOOLS_DELAY_H_
 
-#ifdef STM32F407xx
+#include "stm32f4xx.h"
+#include "rcc_config.h"
 
-#define TIME_COUNT_5us 16
-#define TIME_COUNT_10us 41
-#define TIME_COUNT_50us 233
-#define TIME_COUNT_100us 480
-#define TIME_COUNT_500us 2400
-#define TIME_COUNT_1ms 4850
-#define TIME_COUNT_5ms 24250
-#define TIME_COUNT_10ms 48500
-#define TIME_COUNT_50ms 242500
-#define TIME_COUNT_100ms 485000
-#define TIME_COUNT_500ms 2425000
-#define TIME_COUNT_1s 4850000
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#define delay_5us() delay_simple(TIME_COUNT_5us)
-#define delay_10us() delay_simple(TIME_COUNT_10us)
-#define delay_50us() delay_simple(TIME_COUNT_50us)
-#define delay_100us() delay_simple(TIME_COUNT_100us)
-#define delay_500us() delay_simple(TIME_COUNT_500us)
-#define delay_1ms() delay_simple(TIME_COUNT_1ms)
-#define delay_5ms() delay_simple(TIME_COUNT_5ms)
-#define delay_10ms() delay_simple(TIME_COUNT_10ms)
-#define delay_50ms() delay_simple(TIME_COUNT_50ms)
-#define delay_100ms() delay_simple(TIME_COUNT_100ms)
-#define delay_500ms() delay_simple(TIME_COUNT_500ms)
-#define delay_1s() delay_simple(TIME_COUNT_1s)
+#define DELAY_PRECISION_MS 1000
+#define DELAY_PRECISION_US 1000000
 
-#define delay_second(Time) delay_simple(TIME_COUNT_1s * (Time))
+class Delay{
+public:
+    static Delay &instance()noexcept{
+        static Delay delay;
+        return delay;
+    }
 
-#endif //STM32F407xx
+    void setPrecision(uint32_t precision);
+    void operator()(int32_t count);
 
-void delay_simple(volatile unsigned int count);
+    void __dec()noexcept{
+        --m_count;
+    }
+protected:
+private:
+    volatile int32_t m_count;
+};
 
-#endif //_DELAY_H_
+void SysTick_Handler();
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif //_TOOLS_DELAY_H_

@@ -1,5 +1,5 @@
-#ifndef _STM32_USART_H_
-#define _STM32_USART_H_
+#ifndef _TOOLS_USART_H_
+#define _TOOLS_USART_H_
 
 #include "stm32f4xx.h"
 
@@ -17,6 +17,8 @@ public:
 
 
     USART &operator<<(int data);
+    USART &operator<<(int32_t data);
+    USART &operator<<(uint32_t data);
     USART &operator<<(const char *);
     USART &operator<<(char);
 
@@ -29,4 +31,4 @@ private:
     ~USART();
 };
 
-#endif //_STM32_USART_H_
+#endif //_TOOLS_USART_H_
