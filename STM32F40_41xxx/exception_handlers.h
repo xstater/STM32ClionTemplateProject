@@ -1,5 +1,5 @@
-#ifndef _INTERRUPTS_H_
-#define _INTERRUPTS_H_
+#ifndef _EXCEPTION_HANDLERS_H_
+#define _EXCEPTION_HANDLERS_H_
 
 #include "stm32f4xx.h"
 
@@ -22,4 +22,4 @@ void SysTick_Handler();
 #endif
 
 
-#endif //_INTERRUPTS_H_
+#endif //_EXCEPTION_HANDLERS_H_

@@ -1,4 +1,4 @@
-#include "interrupts.h"
+#include "exception_handlers.h"
 
 void NMI_Handler(){}
 void HardFault_Handler(){ while(true){} }
