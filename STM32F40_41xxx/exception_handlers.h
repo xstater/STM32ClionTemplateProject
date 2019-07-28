@@ -15,7 +15,6 @@ void UsageFault_Handler();
 void SVC_Handler();
 void DebugMon_Handler();
 void PendSV_Handler();
-void SysTick_Handler();
 
 #ifdef __cplusplus
 }
