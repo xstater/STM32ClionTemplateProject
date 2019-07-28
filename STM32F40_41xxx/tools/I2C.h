@@ -11,9 +11,10 @@ public:
     /**
      * @brief initialize the I2C port and pin
      * @note I2C must have a outside up-pull resistance which is about 4.7KOhm
-     * @param port:the I2C's port
-     * @param pin_scl:the I2C's SCL pin
-     * @param pin_sda:the I2C's SDA pin
+     * @param port_scl the I2C's SCL port
+     * @param pin_scl the I2C's SCL pin
+     * @param port_sda the I2C's SDA port
+     * @param pin_sda the I2C's SDA pin
      */
     I2C(GPIO_TypeDef *port_scl,uint16_t pin_scl,GPIO_TypeDef *port_sda,uint16_t pin_sda);
     ~I2C();
