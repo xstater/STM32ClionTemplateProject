@@ -122,6 +122,26 @@ USART &USART::operator<<(int data){
     return *this;
 }
 
+USART &USART::operator<<(float data){
+    ///output the integer part
+    *this << static_cast<int32_t>(data);
+    ///abs
+    if(data < 0){
+        data = -data;
+    }
+    *this << '.';
+    ///output the decimal part
+    data -= static_cast<int32_t>(data);
+    data *= 10;
+    for(int i = 0;i < 8;++i){
+        uint32_t integer = static_cast<uint32_t>(data);
+        *this << static_cast<char>(integer + '0');
+        data -= integer;
+        data *= 10;
+    }
+    return *this;
+}
+
 /*USART &USART::operator>>(int &value){
     char buffer[13],*p = buffer;
     while(USART_GetFlagStatus(USART1,USART_FLAG_RXNE) != SET);
