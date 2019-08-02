@@ -20,13 +20,19 @@ public:
 
     void setPrecision(uint32_t precision);
     void operator()(int32_t count);
+    void reset();
+    uint32_t getTime();
 
     void __dec()noexcept{
         --m_count;
     }
+    void __inc()noexcept{
+        ++m_count2;
+    }
 protected:
 private:
     volatile int32_t m_count;
+    volatile uint32_t m_count2;
 };
 
 void SysTick_Handler();
