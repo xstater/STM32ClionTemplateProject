@@ -1,6 +1,7 @@
 #include "usart.h"
 
-USART::USART(){
+USART::USART()
+    :m_precision(8){
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);
 
     USART_InitTypeDef usartinit = {
@@ -130,32 +131,31 @@ USART &USART::operator<<(float data){
         data = -data;
     }
     *this << '.';
-    ///output the decimal part
+    ///get the decimal part
     data -= static_cast<int32_t>(data);
-    data *= 10;
-    for(int i = 0;i < 8;++i){
-        uint32_t integer = static_cast<uint32_t>(data);
-        *this << static_cast<char>(integer + '0');
-        data -= integer;
+    for(int i = 0;i < m_precision;++i){
         data *= 10;
+    }
+    ///round
+    auto t = static_cast<uint32_t>(data * 10);
+    if(t % 10 > 4){
+        t /= 10;
+        ++t;
+    }else{
+        t /= 10;
+    }
+    return *this << t;
+}
+
+USART &USART::operator<<(USART::Ctrl ctrl){
+    switch(ctrl.ctr){
+        case CtrlChar::set_precision :
+            m_precision = ctrl.data;
+            break;
     }
     return *this;
 }
 
-/*USART &USART::operator>>(int &value){
-    char buffer[13],*p = buffer;
-    while(USART_GetFlagStatus(USART1,USART_FLAG_RXNE) != SET);
-    ///CAUTION: Memory leak here
-    while(USART_GetFlagStatus(USART1,USART_FLAG_IDLE) != SET){
-        *(p++) = USART_ReceiveData(USART1);
-    }
-    *p = '\0';
-    value = 0;
-    for(p = buffer;*p != '\0';++p){
-        value = value * 10 + *p - '0';
-    }
-    return *this;
-}*/
 
 
 

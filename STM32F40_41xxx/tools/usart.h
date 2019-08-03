@@ -10,6 +10,17 @@ public:
         return usart;
     }
 
+    enum class CtrlChar : uint8_t {
+        set_precision = 0,
+    };
+    struct Ctrl{
+        CtrlChar ctr;
+        uint32_t data;
+    };
+
+    static Ctrl setPrecision(uint32_t precision)noexcept{
+        return {CtrlChar::set_precision,precision};
+    }
 
     const static char endl = '\n';
     const static char tab = 't';
@@ -22,12 +33,15 @@ public:
     USART &operator<<(float data);
     USART &operator<<(const char *);
     USART &operator<<(char);
+    USART &operator<<(Ctrl ctrl);
 
     USART &operator>>(char &);
     //USART &operator>>(int &);
 
 protected:
 private:
+    int32_t m_precision;
+
     USART();
     ~USART();
 };
