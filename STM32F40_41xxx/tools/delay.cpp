@@ -10,15 +10,6 @@ void Delay::operator()(int32_t count){
     while(m_count > 0);
 }
 
-void Delay::reset(){
-    m_count2 = 0;
-}
-
-uint32_t Delay::getTime(){
-    return m_count2;
-}
-
 void SysTick_Handler(){
     Delay::instance().__dec();
-    Delay::instance().__inc();
 }
